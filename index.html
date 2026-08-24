@@ -66,13 +66,183 @@ footer{margin-top:28px;color:#748298;font-size:11px;letter-spacing:.7px}
 .modal-box h2{margin-bottom:9px}.modal-box p{color:var(--muted);line-height:1.6}.close{float:right;background:none;color:white;border:0;font-size:24px;cursor:pointer}
 @media(max-width:760px){.features{grid-template-columns:repeat(2,1fr)}.hero-card{padding:42px 17px}.navtag{display:none}}
 @media(max-width:450px){.features{grid-template-columns:1fr}.logo{width:39px;height:39px}h1{letter-spacing:-1.5px}}
+.top-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  position:relative;
+  z-index:20;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.nav-links > a,
+.drop-btn{
+  color:var(--muted);
+  text-decoration:none;
+  background:none;
+  border:0;
+  padding:10px 13px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  border-radius:10px;
+}
+
+.nav-links > a:hover,
+.drop-btn:hover{
+  color:var(--gold);
+  background:rgba(255,255,255,.05);
+}
+
+.dropdown{
+  position:relative;
+}
+
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  min-width:210px;
+  padding:8px;
+  margin-top:7px;
+  background:#101c2d;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+}
+
+.dropdown-menu.show{
+  display:block;
+}
+
+.dropdown-menu a{
+  display:block;
+  color:#dce3ee;
+  text-decoration:none;
+  padding:11px 13px;
+  border-radius:9px;
+  font-size:13px;
+}
+
+.dropdown-menu a:hover{
+  background:rgba(244,204,103,.10);
+  color:var(--gold);
+}
+
+.exclusive-link{
+  border:1px solid rgba(244,204,103,.35)!important;
+  color:var(--gold)!important;
+}
+
+.menu-toggle{
+  display:none;
+  background:#142238;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:20px;
+}
+
+@media(max-width:760px){
+
+  .top-nav{
+    flex-wrap:wrap;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+    margin-top:14px;
+    padding:10px;
+    background:#0d1929;
+    border:1px solid var(--line);
+    border-radius:16px;
+  }
+
+  .nav-links.show{
+    display:flex;
+  }
+
+  .nav-links > a,
+  .drop-btn{
+    width:100%;
+    text-align:left;
+    padding:13px;
+  }
+
+  .dropdown-menu{
+    position:static;
+    margin:4px 0 6px;
+    width:100%;
+    box-shadow:none;
+  }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<nav>
-  <div class="brand"><div class="logo">⚖</div><div>MANRAJ JUDICIAL</div></div>
-  <div class="navtag">Systematic • Focused • Consistent</div>
+<nav class="top-nav">
+  <div class="brand">
+    <div class="logo">⚖</div>
+    <div>MANRAJ JUDICIAL</div>
+  </div>
+
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+
+    <div class="dropdown">
+      <button class="drop-btn" onclick="toggleDrop('prepDrop')">
+        Preparation ▾
+      </button>
+      <div class="dropdown-menu" id="prepDrop">
+        <a href="start-journey.html">Start Your Journey</a>
+        <a href="#syllabus">Study Roadmap</a>
+        <a href="#concepts">Concept Building</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="drop-btn" onclick="toggleDrop('practiceDrop')">
+        Practice ▾
+      </button>
+      <div class="dropdown-menu" id="practiceDrop">
+        <a href="#mcq">MCQ Practice</a>
+        <a href="#mock">Mock Tests</a>
+        <a href="#previous">Previous Papers</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="drop-btn" onclick="toggleDrop('mainsDrop')">
+        Mains ▾
+      </button>
+      <div class="dropdown-menu" id="mainsDrop">
+        <a href="#mains">Daily Mains Challenge</a>
+        <a href="#writing">Answer Writing</a>
+        <a href="#evaluation">Evaluation</a>
+      </div>
+    </div>
+
+    <a href="exclusive.html" class="exclusive-link">🔐 Exclusive</a>
+
+    <a href="#about">About</a>
+  </div>
 </nav>
 
 <main class="hero">
@@ -125,5 +295,24 @@ function openAbout(){
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
 </script>
+  <script>
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("show");
+}
+
+function toggleDrop(id){
+  document.getElementById(id).classList.toggle("show");
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener("click", function(e){
+
+  if(!e.target.closest(".dropdown")){
+    document.querySelectorAll(".dropdown-menu")
+      .forEach(menu => menu.classList.remove("show"));
+  }
+
+});
+  </script>
 </body>
 </html>
