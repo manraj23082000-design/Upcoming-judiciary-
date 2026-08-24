@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1220">
-<meta name="description" content="Manraj Judicial — a systematic judiciary exam preparation platform.">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Manraj Judicial — systematic judiciary exam preparation with daily live challenges, free preparation and exclusive membership.">
 <title>Manraj Judicial | Systematic Preparation</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 :root{
   --navy:#07111f;--navy2:#0d1b2f;--gold:#d8ad55;--gold2:#f4d58a;
   --white:#f7f9fc;--muted:#aab7c9;--line:rgba(255,255,255,.12);
@@ -23,17 +25,84 @@ body:before{
              radial-gradient(circle at 85% 80%,rgba(70,120,180,.16),transparent 32%);
 }
 .container{width:min(1120px,92%);margin:auto;position:relative;z-index:1}
-nav{
-  display:flex;justify-content:space-between;align-items:center;padding:22px 0;
+
+/* NAVIGATION */
+.top-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;position:relative;z-index:20;
 }
 .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.4px}
 .logo{
   width:43px;height:43px;border:1px solid rgba(216,173,85,.65);border-radius:12px;
-  display:grid;place-items:center;font-size:21px;color:var(--gold2);
-  background:rgba(255,255,255,.04);
+  display:grid;place-items:center;font-size:21px;color:var(--gold2);background:rgba(255,255,255,.04);
 }
-.navtag{font-size:12px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase}
-.hero{min-height:calc(100vh - 88px);display:grid;place-items:center;padding:45px 0 70px}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-links>a,.drop-btn{
+  color:var(--muted);text-decoration:none;background:none;border:0;padding:10px 13px;
+  font-size:13px;font-weight:700;cursor:pointer;border-radius:10px;
+}
+.nav-links>a:hover,.drop-btn:hover{color:var(--gold);background:rgba(255,255,255,.05)}
+.dropdown{position:relative}
+.dropdown-menu{
+  display:none;position:absolute;top:100%;left:0;min-width:210px;padding:8px;margin-top:7px;
+  background:#101c2d;border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+}
+.dropdown-menu.show{display:block}
+.dropdown-menu a{
+  display:block;color:#dce3ee;text-decoration:none;padding:11px 13px;border-radius:9px;font-size:13px;
+}
+.dropdown-menu a:hover{background:rgba(244,204,103,.10);color:var(--gold)}
+.exclusive-link{border:1px solid rgba(244,204,103,.35)!important;color:var(--gold)!important}
+.menu-toggle{
+  display:none;background:#142238;color:white;border:1px solid var(--line);
+  border-radius:10px;padding:9px 12px;font-size:20px;
+}
+
+/* FLOATING LIVE BUTTON */
+.live-float{
+  position:fixed;top:92px;right:18px;z-index:40;
+  display:flex;align-items:center;gap:9px;padding:11px 15px 11px 12px;
+  border:1px solid rgba(244,213,138,.65);border-radius:999px;
+  color:#17130a;background:linear-gradient(135deg,#ffe7a2,#d8ad55);
+  text-decoration:none;font-size:12px;font-weight:900;letter-spacing:.4px;
+  box-shadow:0 10px 30px rgba(216,173,85,.30);
+  animation:floatLivePulse 2.2s infinite;
+  transition:opacity .4s,transform .4s,box-shadow .25s;
+}
+.live-float.clicked{animation:none;pointer-events:none}
+.live-float.clicked .float-dot,.live-float.clicked .float-arrow{display:none}
+.live-float.clicked .float-text{font-size:0}
+.live-float.clicked .float-text:after{
+  content:"👍";font-size:30px;display:inline-block;
+  animation:thumbBounce .7s ease forwards;
+}
+@keyframes thumbBounce{
+  0%{transform:scale(.4) rotate(-15deg)}
+  55%{transform:scale(1.2) rotate(5deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+.live-float:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 15px 38px rgba(216,173,85,.42);
+}
+.float-dot{
+  width:9px;height:9px;border-radius:50%;background:#ff3048;
+  animation:floatDot 1.4s infinite;
+}
+.float-arrow{font-size:17px;animation:floatArrow 1.2s ease-in-out infinite}
+@keyframes floatLivePulse{
+  0%,100%{box-shadow:0 10px 30px rgba(216,173,85,.30)}
+  50%{box-shadow:0 13px 34px rgba(216,173,85,.42),0 0 0 9px rgba(244,213,138,0)}
+}
+@keyframes floatDot{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,48,72,.7)}
+  70%{box-shadow:0 0 0 7px rgba(255,48,72,0)}
+}
+@keyframes floatArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+/* HERO */
+.hero{min-height:calc(100vh - 88px);display:grid;place-items:center;padding:45px 0 65px}
 .hero-card{
   width:100%;text-align:center;padding:55px 25px 48px;border:1px solid var(--line);
   border-radius:30px;background:rgba(255,255,255,.045);
@@ -59,142 +128,185 @@ h1 span{color:var(--gold2)}
 .secondary{background:rgba(255,255,255,.06);border:1px solid var(--line);color:white}
 .features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:42px;text-align:left}
 .feature{padding:19px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.035)}
-.icon{font-size:22px;margin-bottom:10px}.feature h3{font-size:15px;margin-bottom:6px}.feature p{font-size:12px;line-height:1.5;color:var(--muted)}
+.icon{font-size:22px;margin-bottom:10px}.feature h3{font-size:15px;margin-bottom:6px}
+.feature p{font-size:12px;line-height:1.5;color:var(--muted)}
 footer{margin-top:28px;color:#748298;font-size:11px;letter-spacing:.7px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;padding:20px;z-index:5}
-.modal.show{display:grid}.modal-box{max-width:480px;width:100%;background:#0e1a2c;border:1px solid var(--line);border-radius:22px;padding:28px}
-.modal-box h2{margin-bottom:9px}.modal-box p{color:var(--muted);line-height:1.6}.close{float:right;background:none;color:white;border:0;font-size:24px;cursor:pointer}
-@media(max-width:760px){.features{grid-template-columns:repeat(2,1fr)}.hero-card{padding:42px 17px}.navtag{display:none}}
-@media(max-width:450px){.features{grid-template-columns:1fr}.logo{width:39px;height:39px}h1{letter-spacing:-1.5px}}
-.top-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:18px 0;
-  position:relative;
-  z-index:20;
+
+/* LIVE CHALLENGE WINDOW */
+.premium-live{
+  position:relative;margin:15px 0 80px;padding:38px;
+  border:1px solid rgba(244,213,138,.35);border-radius:32px;overflow:hidden;
+  background:radial-gradient(circle at 80% 20%,rgba(244,213,138,.12),transparent 30%),
+             linear-gradient(145deg,#111e30,#0a1525);
+  box-shadow:0 30px 90px rgba(0,0,0,.38);
+  scroll-margin-top:90px;
+}
+.premium-live:before{
+  content:"";position:absolute;inset:0;border-radius:32px;padding:1px;
+  background:linear-gradient(120deg,transparent,rgba(244,213,138,.65),transparent,rgba(244,213,138,.3),transparent);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  animation:borderMove 5s linear infinite;pointer-events:none;
+}
+@keyframes borderMove{0%,100%{opacity:.35}50%{opacity:1}}
+.live-glow{position:absolute;width:220px;height:220px;border-radius:50%;filter:blur(70px);pointer-events:none}
+.glow-one{top:-80px;right:5%;background:rgba(244,213,138,.15);animation:floatGlow 5s ease-in-out infinite}
+.glow-two{bottom:0;left:-80px;background:rgba(50,120,220,.12);animation:floatGlow 7s ease-in-out infinite reverse}
+@keyframes floatGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+.live-topline{
+  position:relative;z-index:2;display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:28px;
+}
+.live-status{display:flex;align-items:center;gap:9px;color:#ff6877;font-size:12px;font-weight:900;letter-spacing:2px}
+.live-pulse{width:10px;height:10px;border-radius:50%;background:#ff4055;animation:liveRing 1.6s infinite}
+@keyframes liveRing{
+  0%{box-shadow:0 0 0 0 rgba(255,64,85,.7)}
+  70%{box-shadow:0 0 0 9px rgba(255,64,85,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,64,85,0)}
+}
+.live-date{color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:2px}
+.live-content{
+  position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
+  gap:35px;align-items:center;
+}
+.live-kicker{color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:2px;margin-bottom:15px}
+.live-copy h2{font-size:clamp(38px,6vw,68px);line-height:1;letter-spacing:-2.5px;margin-bottom:20px}
+.live-copy h2 span{color:var(--gold2);text-shadow:0 0 35px rgba(244,213,138,.25)}
+.live-description{max-width:650px;color:#b9c5d5;font-size:17px;line-height:1.7;margin-bottom:25px}
+.live-stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:27px}
+.live-stat{
+  min-width:90px;padding:12px 15px;border:1px solid rgba(255,255,255,.10);
+  border-radius:13px;background:rgba(255,255,255,.035);text-align:center;
+}
+.live-stat strong{display:block;color:var(--gold2);font-size:21px}
+.live-stat span{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.7px}
+.live-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.live-main-btn{
+  display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:#17130a;
+  font-weight:900;font-size:14px;padding:16px 21px;border-radius:14px;
+  background:linear-gradient(135deg,#ffe7a2,#d8ad55);
+  box-shadow:0 12px 35px rgba(216,173,85,.22);transition:.25s transform,.25s box-shadow;
+}
+.live-main-btn:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(216,173,85,.35)}
+.live-secondary-btn{
+  text-decoration:none;color:#dce5f0;border:1px solid var(--line);
+  border-radius:14px;padding:15px 18px;font-size:13px;font-weight:700;
+}
+.live-note{margin-top:16px;color:#748298;font-size:11px}
+
+/* TODAY HTML WINDOW */
+.today-window{
+  margin-top:30px;position:relative;z-index:3;
+  border:1px solid rgba(244,213,138,.25);border-radius:22px;
+  background:#091423;padding:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.today-window-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 12px 14px;color:#cbd5e2;font-size:12px;
+}
+.today-window-head strong{color:var(--gold2)}
+.today-frame{
+  width:100%;height:620px;border:0;border-radius:16px;background:#07111f;
+}
+.open-today{
+  display:inline-block;margin-top:12px;color:var(--gold2);font-size:12px;
+  text-decoration:none;font-weight:800;
 }
 
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:8px;
+/* FREE / EXCLUSIVE */
+.content-section{padding:35px 0 75px;scroll-margin-top:20px}
+.section-heading{text-align:center;margin-bottom:34px}
+.section-kicker{color:var(--gold2);font-size:11px;font-weight:900;letter-spacing:2.3px;text-transform:uppercase;margin-bottom:10px}
+.section-heading h2{font-size:clamp(30px,5vw,50px);letter-spacing:-1.5px;margin-bottom:10px}
+.section-heading p{color:var(--muted);max-width:700px;margin:auto;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{
+  padding:30px;border:1px solid var(--line);border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+  box-shadow:0 20px 60px rgba(0,0,0,.16);
 }
-
-.nav-links > a,
-.drop-btn{
-  color:var(--muted);
-  text-decoration:none;
-  background:none;
-  border:0;
-  padding:10px 13px;
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
-  border-radius:10px;
+.card .card-icon{font-size:31px;margin-bottom:15px}
+.card h3{font-size:25px;margin-bottom:12px}
+.card p{color:var(--muted);line-height:1.65;margin-bottom:18px}
+.card ul{list-style:none;display:grid;gap:10px;margin-bottom:23px}
+.card li{color:#dbe3ee}.card li:before{content:"✓";color:var(--gold2);font-weight:900;margin-right:9px}
+.card-btn{
+  display:inline-block;text-decoration:none;padding:13px 17px;border-radius:12px;
+  color:#17130a;background:linear-gradient(135deg,var(--gold2),var(--gold));font-weight:800;font-size:13px;
 }
+.exclusive-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.plan{position:relative;padding:27px;border:1px solid var(--line);border-radius:23px;background:rgba(255,255,255,.04)}
+.plan.featured{border-color:rgba(244,213,138,.45);box-shadow:0 18px 60px rgba(216,173,85,.10)}
+.plan-tag{color:var(--gold2);font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase}
+.plan h3{font-size:22px;margin:9px 0}
+.price{font-size:38px;font-weight:900;color:var(--gold2);margin:10px 0 16px}
+.price small{font-size:13px;color:var(--muted);font-weight:600}
+.plan ul{list-style:none;display:grid;gap:9px;margin-bottom:20px}
+.plan li{color:#d7e0ec;font-size:13px}.plan li:before{content:"✓";color:var(--gold2);margin-right:8px}
+.plan a{display:inline-block;text-decoration:none;color:#17130a;background:linear-gradient(135deg,var(--gold2),var(--gold));padding:12px 15px;border-radius:11px;font-weight:800;font-size:13px}
 
-.nav-links > a:hover,
-.drop-btn:hover{
-  color:var(--gold);
-  background:rgba(255,255,255,.05);
+/* ABOUT */
+.about-box{
+  padding:30px;border:1px solid var(--line);border-radius:24px;
+  background:rgba(255,255,255,.035);text-align:center;color:var(--muted);line-height:1.7;
 }
+.about-box strong{color:white}
 
-.dropdown{
-  position:relative;
-}
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;place-items:center;padding:20px;z-index:50}
+.modal.show{display:grid}
+.modal-box{max-width:480px;width:100%;background:#0e1a2c;border:1px solid var(--line);border-radius:22px;padding:28px}
+.modal-box h2{margin-bottom:9px}
+.modal-box p{color:var(--muted);line-height:1.6}
+.close{float:right;background:none;color:white;border:0;font-size:24px;cursor:pointer}
 
-.dropdown-menu{
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0;
-  min-width:210px;
-  padding:8px;
-  margin-top:7px;
-  background:#101c2d;
-  border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:0 18px 40px rgba(0,0,0,.35);
-}
-
-.dropdown-menu.show{
-  display:block;
-}
-
-.dropdown-menu a{
-  display:block;
-  color:#dce3ee;
-  text-decoration:none;
-  padding:11px 13px;
-  border-radius:9px;
-  font-size:13px;
-}
-
-.dropdown-menu a:hover{
-  background:rgba(244,204,103,.10);
-  color:var(--gold);
-}
-
-.exclusive-link{
-  border:1px solid rgba(244,204,103,.35)!important;
-  color:var(--gold)!important;
-}
-
-.menu-toggle{
-  display:none;
-  background:#142238;
-  color:white;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:9px 12px;
-  font-size:20px;
-}
-
+/* MOBILE */
 @media(max-width:760px){
-
-  .top-nav{
-    flex-wrap:wrap;
-  }
-
-  .menu-toggle{
-    display:block;
-  }
-
+  .top-nav{flex-wrap:wrap}
+  .menu-toggle{display:block}
   .nav-links{
-    display:none;
-    width:100%;
-    flex-direction:column;
-    align-items:stretch;
-    margin-top:14px;
-    padding:10px;
-    background:#0d1929;
-    border:1px solid var(--line);
-    border-radius:16px;
+    display:none;width:100%;flex-direction:column;align-items:stretch;
+    margin-top:14px;padding:10px;background:#0d1929;border:1px solid var(--line);border-radius:16px
   }
-
-  .nav-links.show{
-    display:flex;
-  }
-
-  .nav-links > a,
-  .drop-btn{
-    width:100%;
-    text-align:left;
-    padding:13px;
-  }
-
-  .dropdown-menu{
-    position:static;
-    margin:4px 0 6px;
-    width:100%;
-    box-shadow:none;
-  }
+  .nav-links.show{display:flex}
+  .nav-links>a,.drop-btn{width:100%;text-align:left;padding:13px}
+  .dropdown-menu{position:static;margin:4px 0 6px;width:100%;box-shadow:none}
+  .features{grid-template-columns:repeat(2,1fr)}
+  .hero-card{padding:42px 17px}
+  .premium-live{margin:5px 0 60px;padding:25px 18px;border-radius:24px}
+  .live-content{grid-template-columns:1fr;gap:28px}
+  .live-copy h2{font-size:clamp(38px,12vw,54px);letter-spacing:-2px}
+  .live-description{font-size:15px}
+  .live-stats{display:grid;grid-template-columns:repeat(2,1fr)}
+  .live-actions{flex-direction:column;align-items:stretch}
+  .live-main-btn,.live-secondary-btn{width:100%;justify-content:center;text-align:center}
+  .today-frame{height:650px}
+  .cards{grid-template-columns:1fr}
+  .exclusive-grid{grid-template-columns:1fr}
+  .live-float{top:78px;right:10px;padding:9px 11px}
+}
+@media(max-width:450px){
+  .features{grid-template-columns:1fr}
+  .logo{width:39px;height:39px}
+  h1{letter-spacing:-1.5px}
+  .live-date{font-size:9px;letter-spacing:1px}
+  .today-frame{height:680px}
 }
 </style>
 </head>
+
 <body>
+
+<!-- Floating button: tap = thumbs up for 2 sec, then disappears and scrolls -->
+<a href="#today-challenge" class="live-float" id="liveFloatBtn" aria-label="Go to today's live challenge">
+  <span class="float-dot"></span>
+  <span class="float-text">🔥 LIVE CHALLENGE</span>
+  <span class="float-arrow">↓</span>
+</a>
+
 <div class="container">
+
 <nav class="top-nav">
   <div class="brand">
     <div class="logo">⚖</div>
@@ -207,112 +319,381 @@ footer{margin-top:28px;color:#748298;font-size:11px;letter-spacing:.7px}
     <a href="index.html">Home</a>
 
     <div class="dropdown">
-      <button class="drop-btn" onclick="toggleDrop('prepDrop')">
-        Preparation ▾
-      </button>
+      <button class="drop-btn" onclick="toggleDrop('prepDrop')">Preparation ▾</button>
       <div class="dropdown-menu" id="prepDrop">
-        <a href="start-journey.html">Start Your Journey</a>
-        <a href="#syllabus">Study Roadmap</a>
-        <a href="#concepts">Concept Building</a>
+        <a href="#free-preparation">Start Your Journey</a>
+        <a href="#free-preparation">Study Roadmap</a>
+        <a href="#free-preparation">Concept Building</a>
       </div>
     </div>
 
     <div class="dropdown">
-      <button class="drop-btn" onclick="toggleDrop('practiceDrop')">
-        Practice ▾
-      </button>
+      <button class="drop-btn" onclick="toggleDrop('practiceDrop')">Practice ▾</button>
       <div class="dropdown-menu" id="practiceDrop">
-        <a href="#mcq">MCQ Practice</a>
-        <a href="#mock">Mock Tests</a>
-        <a href="#previous">Previous Papers</a>
+        <a href="#today-challenge">Live MCQ Challenge</a>
+        <a href="#exclusive-membership">Mock Tests</a>
+        <a href="#free-preparation">Previous Papers</a>
       </div>
     </div>
 
     <div class="dropdown">
-      <button class="drop-btn" onclick="toggleDrop('mainsDrop')">
-        Mains ▾
-      </button>
+      <button class="drop-btn" onclick="toggleDrop('mainsDrop')">Mains ▾</button>
       <div class="dropdown-menu" id="mainsDrop">
-        <a href="#mains">Daily Mains Challenge</a>
-        <a href="#writing">Answer Writing</a>
-        <a href="#evaluation">Evaluation</a>
+        <a href="#exclusive-membership">Daily Mains Challenge</a>
+        <a href="#exclusive-membership">Answer Writing</a>
+        <a href="#exclusive-membership">Evaluation</a>
       </div>
     </div>
 
-    <a href="exclusive.html" class="exclusive-link">🔐 Exclusive</a>
-
+    <a href="#exclusive-membership" class="exclusive-link">🔐 Exclusive</a>
     <a href="#about">About</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <main class="hero">
 <section class="hero-card">
-  <div class="eyebrow">Your Judiciary Preparation Starts Here</div>
-  <h1>Welcome to <span>Manraj Judicial</span></h1>
-  <p class="lead">A systematic approach to judiciary preparation—combining focused learning, MCQ practice, mock tests, and mains answer writing to help you prepare with clarity, confidence, and consistency.</p>
 
-<div class="quote">
-  <strong>Prepare with direction. Practice with purpose. Progress with confidence.</strong>
-  <p>We build the roadmap. You bring the commitment.</p>
-</div>
+  <div class="eyebrow">Your Judiciary Preparation Starts Here</div>
+
+  <h1>Welcome to <span>Manraj Judicial</span></h1>
+
+  <p class="lead">
+    A systematic approach to judiciary preparation—combining focused learning,
+    MCQ practice, mock tests, and mains answer writing to help you prepare
+    with clarity, confidence, and consistency.
+  </p>
+
+  <div class="quote">
+    <strong>Prepare with direction. Practice with purpose. Progress with confidence.</strong>
+    <p>We build the roadmap. You bring the commitment.</p>
+  </div>
 
   <div class="cta-row">
-    <button class="btn primary" onclick="window.location.href='start-journey.html'">
-        Start Your Journey →
+    <button class="btn primary" onclick="goToSection('free-preparation')">
+      Start Your Journey →
     </button>
 
-    <button class="btn secondary" onclick="openAbout()">
-        Explore the System
+    <button class="btn secondary" onclick="goToSection('exclusive-membership')">
+      Explore the System →
     </button>
-</div>
+  </div>
 
   <div class="features">
-    <div class="feature"><div class="icon">🎯</div><h3>Focused Preparation</h3><p>Study with a defined direction instead of jumping between resources.</p></div>
-    <div class="feature"><div class="icon">📝</div><h3>MCQ Practice</h3><p>Practice, review mistakes and measure your progress.</p></div>
-    <div class="feature"><div class="icon">✍️</div><h3>Mains Writing</h3><p>Develop structure, clarity, speed and answer-writing discipline.</p></div>
-    <div class="feature"><div class="icon">📊</div><h3>Progress System</h3><p>Track performance and identify the areas that need more work.</p></div>
+    <div class="feature">
+      <div class="icon">🎯</div>
+      <h3>Focused Preparation</h3>
+      <p>Study with a defined direction instead of jumping between resources.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📝</div>
+      <h3>MCQ Practice</h3>
+      <p>Practice, review mistakes and measure your progress.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">✍️</div>
+      <h3>Mains Writing</h3>
+      <p>Develop structure, clarity, speed and answer-writing discipline.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📊</div>
+      <h3>Progress System</h3>
+      <p>Track performance and identify the areas that need more work.</p>
+    </div>
   </div>
 
   <footer>MANRAJ JUDICIAL • PREPARE WITH A SYSTEM • PERFORM WITH CONFIDENCE</footer>
 </section>
 </main>
+
+<!-- TODAY'S LIVE CHALLENGE -->
+<section class="premium-live" id="today-challenge">
+
+  <div class="live-glow glow-one"></div>
+  <div class="live-glow glow-two"></div>
+
+  <div class="live-topline">
+    <div class="live-status">
+      <span class="live-pulse"></span>
+      LIVE TODAY
+    </div>
+    <div class="live-date">DAILY JUDICIARY CHALLENGE</div>
+  </div>
+
+  <div class="live-content">
+
+    <div class="live-copy">
+      <div class="live-kicker">TODAY'S PUBLIC CHALLENGE</div>
+
+      <h2>Test Your <span>Legal Knowledge.</span></h2>
+
+      <p class="live-description">
+        Attempt today's 10-question BNSS challenge. One attempt, exam-style
+        questions, instant score and answer review.
+      </p>
+
+      <div class="live-stats">
+        <div class="live-stat">
+          <strong>10</strong>
+          <span>Questions</span>
+        </div>
+        <div class="live-stat">
+          <strong>10</strong>
+          <span>Minutes</span>
+        </div>
+        <div class="live-stat">
+          <strong>1</strong>
+          <span>Attempt</span>
+        </div>
+        <div class="live-stat">
+          <strong>🏆</strong>
+          <span>Daily Ranking</span>
+        </div>
+      </div>
+
+      <div class="live-actions">
+        <a class="live-main-btn" href="today.html">
+          Start Today's Challenge <span>→</span>
+        </a>
+        <a class="live-secondary-btn" href="today.html">
+          Open Full Page
+        </a>
+      </div>
+
+      <div class="live-note">
+        Finish the challenge → enter your name & email → see your result.
+      </div>
+    </div>
+
+    <div class="today-window">
+      <div class="today-window-head">
+        <span>🔴 LIVE WINDOW</span>
+        <strong>Today's Challenge</strong>
+      </div>
+
+      <!-- today.html appears inside the Index page -->
+      <iframe
+        class="today-frame"
+        src="today.html"
+        title="Today's Live Judiciary Challenge"
+        loading="lazy">
+      </iframe>
+
+      <a class="open-today" href="today.html">
+        Open Today's Challenge in full screen →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FREE PREPARATION -->
+<section class="content-section" id="free-preparation">
+
+  <div class="section-heading">
+    <div class="section-kicker">Free Preparation</div>
+    <h2>Start Without a Membership</h2>
+    <p>
+      Explore selected resources and experience the Manraj Judicial preparation
+      method before choosing an exclusive plan.
+    </p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>Free Preliminary Mock Tests</h3>
+      <p>
+        Sample and free practice tests to help you understand your current
+        preparation level.
+      </p>
+      <ul>
+        <li>Selected MCQs</li>
+        <li>Sample mock tests</li>
+        <li>Explanations</li>
+        <li>Score review</li>
+      </ul>
+      <a href="today.html" class="card-btn">Attempt Free Mock →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>Smart Study Samples</h3>
+      <p>
+        See how one legal concept can be connected with Prelims practice and
+        Mains application.
+      </p>
+      <ul>
+        <li>Concept-first learning</li>
+        <li>MCQ connection</li>
+        <li>Mains application</li>
+        <li>Revision approach</li>
+      </ul>
+      <a href="#exclusive-membership" class="card-btn">Explore More →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXCLUSIVE MEMBERSHIP -->
+<section class="content-section" id="exclusive-membership">
+
+  <div class="section-heading">
+    <div class="section-kicker">Exclusive Membership</div>
+    <h2>Choose Your Preparation Support</h2>
+    <p>
+      Separate services for focused Prelims practice, personal Mains evaluation,
+      or the complete Manraj Judicial experience.
+    </p>
+  </div>
+
+  <div class="exclusive-grid">
+
+    <div class="plan">
+      <div class="plan-tag">Prelims Practice</div>
+      <h3>Exclusive Mock Tests</h3>
+      <div class="price">₹500 <small>/ month</small></div>
+      <ul>
+        <li>Exclusive Preliminary Mock Tests</li>
+        <li>Exam-oriented practice</li>
+        <li>Detailed explanations</li>
+        <li>Performance-focused practice</li>
+      </ul>
+      <a href="membership.html">Choose ₹500 Plan →</a>
+    </div>
+
+    <div class="plan">
+      <div class="plan-tag">Mains Support</div>
+      <h3>Handwritten Mains Evaluation</h3>
+      <div class="price">₹1,000 <small>/ month</small></div>
+      <ul>
+        <li>Daily Mains Challenge</li>
+        <li>Handwritten answer submission</li>
+        <li>Personal evaluation</li>
+        <li>Legal mistakes & feedback</li>
+      </ul>
+      <a href="membership.html">Choose ₹1,000 Plan →</a>
+    </div>
+
+    <div class="plan featured">
+      <div class="plan-tag">Complete Plan</div>
+      <h3>Complete Judiciary Plan</h3>
+      <div class="price">₹1,200 <small>/ month</small></div>
+      <ul>
+        <li>Exclusive Mock Tests</li>
+        <li>Handwritten Mains Evaluation</li>
+        <li>Daily Challenges</li>
+        <li>Complete preparation support</li>
+      </ul>
+      <a href="membership.html">Choose ₹1,200 Plan →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="content-section" id="about">
+  <div class="section-heading">
+    <div class="section-kicker">About Manraj Judicial</div>
+    <h2>Prepare With a System</h2>
+  </div>
+
+  <div class="about-box">
+    <strong>Learn → Practice → Test → Analyse → Improve</strong>
+    <br><br>
+    Manraj Judicial is designed to make judiciary preparation more structured,
+    practical and consistent through focused study, MCQs, mock tests,
+    daily challenges and Mains answer-writing support.
+  </div>
+</section>
+
 </div>
 
+<!-- ABOUT MODAL -->
 <div class="modal" id="modal">
- <div class="modal-box">
-  <button class="close" onclick="closeModal()">×</button>
-  <h2>Let's begin.</h2>
-  <p>Your next step will be to choose your preparation path: <b>MCQ Practice</b>, <b>Mock Tests</b>, or <b>Mains Writing</b>.</p>
-  <div class="cta-row" style="justify-content:flex-start"><button class="btn primary" onclick="closeModal()">Continue</button></div>
- </div>
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2>Manraj Judicial</h2>
+    <p>
+      A systematic judiciary preparation platform built around
+      Learn → Practice → Test → Analyse → Improve.
+    </p>
+    <div class="cta-row" style="justify-content:flex-start">
+      <button class="btn primary" onclick="closeModal()">Continue</button>
+    </div>
+  </div>
 </div>
 
 <script>
-function openModal(){document.getElementById('modal').classList.add('show')}
-function openAbout(){
- alert("Manraj Judicial is built around systematic preparation: Learn → Practice → Test → Analyse → Improve.");
+/* Smooth section navigation */
+function goToSection(id){
+  const target=document.getElementById(id);
+  if(target){
+    target.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
 }
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-</script>
-  <script>
+
+/* Mobile menu */
 function toggleMenu(){
   document.getElementById("navLinks").classList.toggle("show");
 }
 
+/* Dropdown */
 function toggleDrop(id){
-  document.getElementById(id).classList.toggle("show");
+  const menu=document.getElementById(id);
+  document.querySelectorAll(".dropdown-menu").forEach(m=>{
+    if(m!==menu)m.classList.remove("show");
+  });
+  menu.classList.toggle("show");
 }
 
-// Close dropdowns when clicking outside
-document.addEventListener("click", function(e){
-
+/* Close dropdown when clicking outside */
+document.addEventListener("click",function(e){
   if(!e.target.closest(".dropdown")){
     document.querySelectorAll(".dropdown-menu")
-      .forEach(menu => menu.classList.remove("show"));
+      .forEach(menu=>menu.classList.remove("show"));
+  }
+});
+
+/*
+  LIVE BUTTON:
+  1. User clicks LIVE CHALLENGE.
+  2. Button changes to 👍.
+  3. Page smoothly moves to today's challenge.
+  4. Button disappears after 2 seconds.
+*/
+const liveFloatBtn=document.getElementById("liveFloatBtn");
+
+liveFloatBtn.addEventListener("click",function(e){
+  e.preventDefault();
+
+  const target=document.getElementById("today-challenge");
+
+  this.classList.add("clicked");
+
+  if(target){
+    setTimeout(()=>{
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    },120);
   }
 
+  setTimeout(()=>{
+    this.style.opacity="0";
+    this.style.transform="scale(.6)";
+  },1600);
+
+  setTimeout(()=>{
+    this.style.display="none";
+  },2000);
 });
-  </script>
+</script>
+
 </body>
 </html>
